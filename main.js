@@ -65,9 +65,12 @@ function answers(){
             imageCreate.attr('src', answerImage);
             $('#answers').append(imageCreate);
         } else {
-            $('#questions').text("Sorry the answer is " + correctAnswer);
+            $('#answers').empty();
+            $('#question').text("Sorry the answer is " + correctAnswer);
             $('#answers').append(imageCreate); 
+        
         }
+         
     })
     
 }
