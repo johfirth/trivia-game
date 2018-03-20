@@ -132,11 +132,13 @@ function endGame(){
     $('#question').empty();
     $('#answers').empty();
     $('#navigation').empty();
-    var endCredits = $('<h2 class = "jumbotron col-md-6 col-md-offset-3 text-center">');
-    endCredits.html("Congrats! you got " + win + "/" + (win + loss));
+    var endCredits = $('<h2 class = "col-md-6 col-md-offset-3 text-center">');
+    endCredits.html("Congrats! you got " + win + "/" + (win + loss) + ' correct.');
     $('#navigation').append(endCredits);
-}
-
-
-
-
+    var replayButton = $('<button id = "replay" class = "btn btn-default col-md-offset-6 center-block">');
+    replayButton.text('Play Again?');
+    $(endCredits).append(replayButton)
+    $('#replay').click(function() {
+        location.reload();
+        })
+    }
