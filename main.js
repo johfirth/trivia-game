@@ -30,19 +30,27 @@ var questionNumber;
 var answerNumber;
 var correctAnswer;
 var answerImage;
+var randomQuestion;
+var win = 0;
+var loss = 0;
 
-$('#start-button').click(game)
+$('#start-button').click(gameStart)
 
 function nextQuestion(){
-    var randomQuestion = triviaArray[Math.floor(Math.random() * triviaArray.length)];
+    randomQuestion = triviaArray[Math.floor(Math.random() * triviaArray.length)];
     questionNumber = randomQuestion.question;
     answerNumber = randomQuestion.answer;
     correctAnswer = randomQuestion.rightAnswer;
     answerImage = randomQuestion.image;
+    $('#wins').text(win);
+    $('#loss').text(loss);
+
+
 }
 
-function game(){
-    $('#start-button').remove();
+function gameStart(){
+    $('#answers').empty();
+    $('#navigation').empty();
     nextQuestion();
     $('#question').text(questionNumber);
     answers();
@@ -51,7 +59,7 @@ function game(){
 
 function answers(){
     for (var index = 0; index < answerNumber.length; index++) {
-        var buttonCreate = $('<button class= "answer-button btn btn-default btn-lg btn-block block-center col-md-6"> ')
+        var buttonCreate = $('<button class = "answer-button btn btn-default btn-lg btn-block block-center col-md-6"> ')
         buttonCreate.text(answerNumber[index]);
         buttonCreate.attr("data-name", answerNumber[index]);
         $('#answers').append(buttonCreate);
@@ -60,15 +68,22 @@ function answers(){
         var userGuess = $(this).attr("data-name");
         var imageCreate = $('<img>');
         imageCreate.attr('src', answerImage);
+        var nextButton = $('<button id = "next" class = "btn btn-default btn-lg btn-block block-center col-md-3">');
+        nextButton.text("Next Question");
         if (userGuess === correctAnswer){
             $('#answers').empty();
             $('#question').text("You're Right!");
             $('#answers').append(imageCreate);
+            $('#navigation').append(nextButton);
+            $('#next').click(gameStart);
+            win++;
         } else {
             $('#answers').empty();
             $('#question').text("Sorry the answer is " + correctAnswer);
             $('#answers').append(imageCreate); 
-        
+            $('#navigation').append(nextButton);
+            $('#next').click(gameStart);
+            loss++;
         }
          
     })
