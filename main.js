@@ -23,7 +23,42 @@ var triviaArray = [
         rightAnswer: "Deathstroke",
         image: "images/deathstroke.png",
     },
-
+    {
+        question: "Who is Thor's brother",
+        answer: ["Loki", "Volstagg", "Ivan Vanko", "Drax"],
+        rightAnswer: "Loki",
+        image: "images/loki.png",
+    },
+    {
+        question: "Who is the other large weapons manufacturer in Iron Man?",
+        answer: ["War Machine", "Hammer", "Hydra", "Shield"],
+        rightAnswer: "Hammer",
+        image: "images/hammer.jpg",
+    },
+    {
+        question: "Who is the Second Commander of S.H.I.E.L.D.?",
+        answer: ["Tony Stark", "Steve Rogers", "Howard Stark", "Nick Fury"],
+        rightAnswer: "Nick Fury",
+        image: "images/nickfury.png",
+    },
+    {
+        question: "In what comic book was Black Widow introduced?",
+        answer: ["Spider-Man", "Iron Man", "Captain America", "Black Panther"],
+        rightAnswer: "Iron Man",
+        image: "images/blackwidow.png",
+    },
+    {
+        question: "In what comic was Wolverine introduced?",
+        answer: ["Incredible Hulk", "X-Men", "Captain America", "Black Panther"],
+        rightAnswer: "Incredible Hulk",
+        image: "images/wolverine.jpg",
+    },
+    {
+        question: "In what comic was Spider-man introduced?",
+        answer: ["Spider-Man", "Amazing Fantasy", "Captain America", "Detective Comics"],
+        rightAnswer: "Amazing Fantasy",
+        image: "images/spiderman.png",
+    },
 ];
 
 var questionNumber;
@@ -48,16 +83,18 @@ function nextQuestion(){
 }
 
 function gameStart(){
-    $('#answers').empty();
-    $('#navigation').empty();
-    nextQuestion();
-    $('#question').text(questionNumber);
-    answers();
+    if (triviaArray.length > 0){
+        $('#answers').empty();
+        $('#navigation').empty();
+        nextQuestion();
+        $('#question').text(questionNumber);
+        answers();
+    } else endGame();
 }
 
 function removeFromArray(){
-    var arrayIndexRandomQuestion = triviaArray.indexOf(randomQuestion);
-    triviaArray.splice(arrayIndexRandomQuestion, 1)
+    var randomQuestionArrayIndex = triviaArray.indexOf(randomQuestion);
+    triviaArray.splice(randomQuestionArrayIndex, 1);
     $('#next').click(gameStart);
 }
 
@@ -80,18 +117,24 @@ function answers(){
             $('#answers').append(imageCreate);
             $('#navigation').append(nextButton);
             win++;
-            removeFromArray()
+            removeFromArray();
         } else {
             $('#answers').empty();
             $('#question').text("Sorry the answer is " + correctAnswer);
             $('#answers').append(imageCreate); 
             $('#navigation').append(nextButton);
             loss++;
-            removeFromArray()
-        }
-         
-    })
-    
+            removeFromArray();
+                }         
+             })}
+
+function endGame(){
+    $('#question').empty();
+    $('#answers').empty();
+    $('#navigation').empty();
+    var endCredits = $('<h2 class = "jumbotron col-md-6 col-md-offset-3 text-center">');
+    endCredits.html("Congrats! you got " + win + "/" + (win + loss));
+    $('#navigation').append(endCredits);
 }
 
 
