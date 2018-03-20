@@ -59,10 +59,10 @@ function answers(){
     $('.answer-button').click(function guessEval(){
         var userGuess = $(this).attr("data-name");
         var imageCreate = $('<img>');
+        imageCreate.attr('src', answerImage);
         if (userGuess === correctAnswer){
             $('#answers').empty();
             $('#question').text("You're Right!");
-            imageCreate.attr('src', answerImage);
             $('#answers').append(imageCreate);
         } else {
             $('#answers').empty();
