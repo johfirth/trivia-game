@@ -1,27 +1,46 @@
-var trivia = {
-    questions: {   
-        one: 'Who is Peter Parker?',
-
-
+var triviaArray = [
+    {
+        question: "Who is Peter Parker?",
+        answer: ["Spider-Man", "Iron Man", "Captain America", "Black Panther"],
+        rightAnswer: "Spider-Man",
+        image: 
     },
-    answers: {
-        one: ['Spider-Man','Iron Man','Captain America', 'Black Panther'],
+    {
+        question: "Who is Tony Starks girlfriend?",
+        answer: ["Jane Foster", "Pepper Pots", "Jessica Jones", "Natalia Romanova"],
+        rightAnswer: "Pepper Pots",
+    },
+    {
+        question: "When was Captain America first published?",
+        answer: ["1956", "1967", "1941", "1904"],
+        rightAnswer: "1941",
+    },
+    {
+        question: "Who is not a Marvel Comics villan?",
+        answer: ["Red Skull", "Dr. Doom", "Thanos", "Deathstroke"],
+        rightAnswer: "Deathstroke",
     },
 
-    correct: {
-        one: 'Spider-Man',
+];
 
-    }
-};
+var questionNumber;
+var answerNumber;
+var correctAnswer;
 
-var questionNumber = trivia.questions.one;
-var answerNumber = trivia.answers.one;
-var correctAnswer = trivia.correct.one;
+$('#start-button').click(game)
 
-
+function nextQuestion(){
+    var randomQuestion = triviaArray[Math.floor(Math.random() * triviaArray.length)];
+    questionNumber = randomQuestion.question;
+    answerNumber = randomQuestion.answer;
+    correctAnswer = randomQuestion.rightAnswer;
+}
 
 function game(){
+    $('#start-button').remove();
+    nextQuestion();
     $('#question').text(questionNumber);
+    answers();
 
 }
 
@@ -32,19 +51,17 @@ function answers(){
         buttonCreate.attr("data-name", answerNumber[index]);
         $('#answers').append(buttonCreate);
     }
-    $('.answer-button').click(guessEval)
-    function guessEval () {
+    $('.answer-button').click(function guessEval(){
         var userGuess = $(this).attr("data-name");
-        if (userGuess === correctAnswer ) {
-            console.log ('you got it')
-        } else {
-            console.log('you aint got it')
-        }
-    }
+        if (userGuess === correctAnswer){
+            console.log('you right');
+            $('#answers').empty();
+            $('#question').text("You're Right!");
+        } else {console.log ('not even')}
+    })
+    
 }
 
-function reset(){
-    $('#answers').empty()
-}
+
 
 
