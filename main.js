@@ -45,7 +45,6 @@ function nextQuestion(){
     $('#wins').text(win);
     $('#loss').text(loss);
 
-
 }
 
 function gameStart(){
@@ -54,7 +53,12 @@ function gameStart(){
     nextQuestion();
     $('#question').text(questionNumber);
     answers();
+}
 
+function removeFromArray(){
+    var arrayIndexRandomQuestion = triviaArray.indexOf(randomQuestion);
+    triviaArray.splice(arrayIndexRandomQuestion, 1)
+    $('#next').click(gameStart);
 }
 
 function answers(){
@@ -75,15 +79,15 @@ function answers(){
             $('#question').text("You're Right!");
             $('#answers').append(imageCreate);
             $('#navigation').append(nextButton);
-            $('#next').click(gameStart);
             win++;
+            removeFromArray()
         } else {
             $('#answers').empty();
             $('#question').text("Sorry the answer is " + correctAnswer);
             $('#answers').append(imageCreate); 
             $('#navigation').append(nextButton);
-            $('#next').click(gameStart);
             loss++;
+            removeFromArray()
         }
          
     })
