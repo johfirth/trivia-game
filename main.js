@@ -17,7 +17,7 @@ var trivia = {
 var questionNumber = trivia.questions.one;
 var answerNumber = trivia.answers.one;
 var correctAnswer = trivia.correct.one;
-var userGuess;
+
 
 
 function game(){
@@ -32,6 +32,15 @@ function answers(){
         buttonCreate.attr("data-name", answerNumber[index]);
         $('#answers').append(buttonCreate);
     }
+    $('.answer-button').click(guessEval)
+    function guessEval () {
+        var userGuess = $(this).attr("data-name");
+        if (userGuess === correctAnswer ) {
+            console.log ('you got it')
+        } else {
+            console.log('you aint got it')
+        }
+    }
 }
 
 function reset(){
@@ -39,15 +48,3 @@ function reset(){
 }
 
 
-
-function guessEval () {
-    userGuess = $(this).attr("data-name");
-    if (userGuess === correctAnswer ) {
-        console.log ('you got it')
-    } if (userGuess !== correctAnswer) {
-        console.log('you aint got it')
-    }
-}
-
-
-$(document).click(".answer-button", guessEval);
